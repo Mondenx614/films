@@ -1,0 +1,16 @@
+#conteneur_principal
+{
+    display:flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: 350px;
+    height: 600px;
+    background-color: green;
+}
+
+nav
+{
+    background-color: red;
+    width: 30%;
+    min-width: 100px;
+}
