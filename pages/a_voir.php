@@ -16,11 +16,14 @@ session_start();
     <div id="conteneur_principal">
         <?php
         include("../includes/menu.php");
-        if (! isset($_SESSION['connecte'])) { /* On l'invite à se connecter */
+        if (! isset($_SESSION['connecte'])) { // On l'invite à se connecter
             include("../includes/demande_connexion.php");
         }
-        else { /* Ici la fonctionnalité de la page */
-            echo '<p> Ici, il y aura une liste des films à voir absolument !</p>';
+        else { // Liste des films à voir
+            $reponse = $bdd->query('select * from film where vu=0');
+            while ($donnees = $reponse->fetch()) {
+                echo $donnees['titre'] . '<br />';
+            }
         }
         include("../includes/footer.php");
         ?>

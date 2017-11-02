@@ -16,10 +16,10 @@ session_start();
     <div id="conteneur_principal">
         <?php
         include("../includes/menu.php");
-        if (! isset($_SESSION['connecte'])) { /* On l'invite à se connecter */
+        if (! isset($_SESSION['connecte'])) { // On l'invite à se connecter
             include("../includes/demande_connexion.php");
         }
-        else {
+        else { // Formulaire pour ajouter un film
             echo '<p> Ici, un petit formulaire des familles pour ajouter un film à la collection !</p>';
         }
         include("../includes/footer.php");

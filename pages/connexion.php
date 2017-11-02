@@ -1,26 +1,26 @@
 <?php
 include("../includes/connexion_bdd.php");
 session_start();
-if (isset($_SESSION['connecte'])) {
+if (isset($_SESSION['connecte'])) { // S'il est déjà connecté
     echo 'Tu es bien connecté !';
     include("../includes/menu.php");
 } else {
-    if (isset($_POST['identifiant']) && isset($_POST['mdp'])) {
+    if (isset($_POST['identifiant']) && isset($_POST['mdp'])) { // S'il a appuyé sur se connecter
         if ($_POST['identifiant'] != '' && $_POST['mdp'] != '') { // Tout rentré
             $reponse = $bdd->prepare('select mdp from compte where identifiant=?');
             $reponse->execute(array($_POST['identifiant']));
             $donnee = $reponse->fetch();
-            if ($_POST['mdp'] == $donnee['mdp']) {
+            if ($_POST['mdp'] == $donnee['mdp']) { // Bon mdp
                 $_SESSION['connecte'] = true;
                 echo 'Tu es bien connecté !';
                 include("../includes/menu.php");
                 $form = false;
-            } else {
+            } else { // Mauvais mdp
                 echo 'L\'identifiant ou le mot de passe est faux.';
                 $form = true;
             }
         }
-        else {
+        else { // S'il a pas tout rentré
             $form = true;
             if ($_POST['identifiant'] == '' && $_POST['mdp'] != '') { // Pas d'identifiant
                 echo 'Tu dois rentrer un identifiant !';
@@ -28,14 +28,14 @@ if (isset($_SESSION['connecte'])) {
             elseif ($_POST['identifiant'] != '' && $_POST['mdp'] == '') { // Pas de mdp
                 echo 'Tu dois rentrer un mot de passe !';
             }
-            elseif ($_POST['identifiant'] == '' && $_POST['mdp'] == '') {
+            elseif ($_POST['identifiant'] == '' && $_POST['mdp'] == '') { // Rien écrit
                 echo 'Tu dois rentrer un identifiant et un mot de passe !';
             }
         }
-    } else {
+    } else { // Pas encore appuyé sur se connecter : premier passage sur la page
         $form = true;
     }
-    if ($form) {
+    if ($form) { // Si on remplit le formulaire
         ?>
         <section> <!-- Formulaire pour se connecter -->
             <form method="post" action="connexion.php">
