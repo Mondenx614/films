@@ -20,7 +20,34 @@ session_start();
             include("../includes/demande_connexion.php");
         }
         else { // Liste des films organisée
-            echo '<p> Ici, on trouvera la liste de tous les films !</p>';
+            ?>
+            <form method="post" action="films.php"> <!-- Choix du tri -->
+                <label for="tri">Trier par : </label>
+                <select name="tri" required>
+                    <option value="titre">Titre</option>
+                    <option value="genre">Genre</option>
+                    <option value="note">Note</option>
+                </select><br/>
+                <input type="submit" value="Trions !" />
+            </form>
+            <?php
+            if (! isset($_POST['tri'])) {
+                $tri = 'titre'; // Trié par titre par défaut
+            } else {
+                $tri = $_POST['tri'];
+            }
+            if ($tri == 'titre') {
+                $reponse = $bdd->query('select * from film where vu=1 order by titre');
+            } elseif ($tri == 'genre') {
+                $reponse = $bdd->query('select * from film where vu=1 order by genre');
+            } elseif ($tri == 'note') {
+                $reponse = $bdd->query('select * from film where vu=1 order by note');
+            }
+            while ($donnee = $reponse->fetch()) {
+                echo '<p><strong>Titre :</strong> ' . $donnee['titre'] . '<br/>' .
+                    '<strong>Genre :</strong> ' . $donnee['genre'] . '<br/>' .
+                    '<strong>Note :</strong> ' . $donnee['note'] . '<br/></p>';
+            }
         }
         include("../includes/footer.php");
         ?>

@@ -37,16 +37,14 @@ if (isset($_SESSION['connecte'])) { // S'il est déjà connecté
     }
     if ($form) { // Si on remplit le formulaire
         ?>
-        <section> <!-- Formulaire pour se connecter -->
-            <form method="post" action="connexion.php">
-                <label for="identifiant">Identifiant : </label>
-                <input type="text" name="identifiant" id="identifiant" />
-                <label for="mdp">Mot de passe : </label>
-                <input type="password" name="mdp" id="mdp" />
-                <input type="submit" value="Se connecter" />
-                <br />
-            </form>
-        </section>
+        <form method="post" action="connexion.php"> <!-- Formulaire pour se connecter -->
+            <label for="identifiant">Identifiant : </label>
+            <input type="text" name="identifiant" id="identifiant" />
+            <label for="mdp">Mot de passe : </label>
+            <input type="password" name="mdp" id="mdp" />
+            <input type="submit" value="Se connecter" />
+            <br />
+        </form>
         <?php
     }
 }
